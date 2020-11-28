@@ -1,0 +1,25 @@
+#定义sharding库信息及策略
+spring:
+  shardingsphere:
+    datasource:
+      names: ds0,ds1
+      ds0:
+        type: com.zaxxer.hikari.HikariDataSource
+        jdbc-driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://db.host:3306/lagou1
+        username: woodywoodylee
+        password: CJHYY!@2020lq
+      ds1:
+        type: com.zaxxer.hikari.HikariDataSource
+        jdbc-driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://db.host:3306/lagou2
+        username: woodywoodylee
+        password: CJHYY!@2020lq
+    #分片策略
+    sharding:
+      tables:
+        position:
+          database-strategy:
+            inline:
+              sharding-column: id
+              algorithm-expression: ds${id%2}
