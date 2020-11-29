@@ -5,21 +5,55 @@ spring:
       names: ds0,ds1
       ds0:
         type: com.zaxxer.hikari.HikariDataSource
-        jdbc-driver-class-name: com.mysql.jdbc.Driver
+        driver-class-name: com.mysql.cj.jdbc.Driver
         jdbc-url: jdbc:mysql://db.host:3306/lagou1
         username: woodywoodylee
         password: CJHYY!@2020lq
       ds1:
         type: com.zaxxer.hikari.HikariDataSource
-        jdbc-driver-class-name: com.mysql.jdbc.Driver
+        driver-class-name: com.mysql.cj.jdbc.Driver
         jdbc-url: jdbc:mysql://db.host:3306/lagou2
         username: woodywoodylee
         password: CJHYY!@2020lq
     #分片策略
     sharding:
+      # 破欸之广播表
+      broadcast-tables: city
       tables:
         position:
           database-strategy:
             inline:
               sharding-column: id
               algorithm-expression: ds${id%2}
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+        position_detail:
+          database-strategy:
+            inline:
+              sharding-column: pid
+              algorithm-expression: ds${pid%2}
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+        city:
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+        # 分库策略
+        b_order:
+          database-strategy:
+            inline:
+              sharding-column: company_id
+              algorithm-expression: ds${company_id%2}
+          # 分表策略
+          table-strategy:
+            inline:
+              sharding-column: id
+              algorithm-expression: b_order${id%2}
+          # 数据节点配置
+          actual-data-nodes: ds${0..1}.b_order${0..1}
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+

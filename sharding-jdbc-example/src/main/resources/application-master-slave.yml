@@ -1,0 +1,29 @@
+#定义sharding库信息及策略
+spring:
+  shardingsphere:
+    datasource:
+      names: master,slave
+      master:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://db.host:3306/lagou1
+        username: woodywoodylee
+        password: CJHYY!@2020lq
+      slave:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://db.host:3306/lagou2
+        username: woodywoodylee
+        password: CJHYY!@2020lq
+    # 主从配置
+    masterslave:
+      name: datasource
+      master-data-source-name: master
+      slave-data-source-names: slave
+    sharding:
+      tables:
+        city:
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+

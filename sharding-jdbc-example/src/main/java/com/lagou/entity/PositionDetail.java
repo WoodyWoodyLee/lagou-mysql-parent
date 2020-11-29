@@ -11,19 +11,18 @@ import java.io.Serializable;
  * @author QING
  */
 @Entity
-@Table(name="position")
+@Table(name = "position_detail")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Position implements Serializable {
+public class PositionDetail implements Serializable {
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name ="name")
-    private String name;
-    @Column(name="salary")
-    private String salary;
-    @Column(name="city")
-    private String city;
+    @Column(name = "pid")
+    private Long pid;
+    @Column(name = "description")
+    private String description;
 }
+    
