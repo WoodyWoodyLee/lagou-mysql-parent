@@ -67,7 +67,7 @@ public class TestShardingDatabase {
     @Test
     public void testBroadcast(){
         City city = new City();
-        city.setName("shenzhen");
+        city.setName("广州");
         city.setProvince("广东");
         cityRepository.save(city);
     }

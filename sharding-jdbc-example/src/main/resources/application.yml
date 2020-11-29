@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: master-slave
+    active: hint-database
   shardingsphere:
     props:
       sql:

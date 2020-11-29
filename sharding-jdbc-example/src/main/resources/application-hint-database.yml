@@ -1,0 +1,26 @@
+#定义sharding库信息及策略
+spring:
+  shardingsphere:
+    datasource:
+      names: ds0,ds1
+      ds0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://db.host:3306/lagou1
+        username: woodywoodylee
+        password: CJHYY!@2020lq
+      ds1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://db.host:3306/lagou2
+        username: woodywoodylee
+        password: CJHYY!@2020lq
+    #指定路由
+    sharding:
+      tables:
+        city:
+          database-strategy:
+            hint:
+              algorithm-class-name: com.lagou.hint.MyHintShardingAlgorithm
+
+
